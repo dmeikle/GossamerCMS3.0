@@ -49,8 +49,9 @@ class UsersController extends AbstractController
         $list = $result->getList()->toArray();
 
         array_walk($list, function($user, $key) use (&$results) {
+
             $results[] = new UserDTO(
-                'kkkk',
+                $user['id'],
                 $user['firstname'],
                 new TestDTO('this is a test')
             );

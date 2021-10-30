@@ -99,13 +99,13 @@ abstract class AbstractComponent
             ), $mergedParameters);
         } else {
            throw new HandlerNotCallableException('unable to match method ' . $this->method . ' to controller with key: ' . $httpRequest->getRequestParams()->getYmlKey());
-        }
+        } 
 
     }
 
     private function mergeParameters(HttpRequest $httpRequest, array $implicitParameters, array $arguments)
     {
-        //implicitParameters has precident
+        //implicitParameters has precedent
         return array_replace($arguments, $httpRequest->getRequestParams()->getUriParameters(), $implicitParameters);
 
     }

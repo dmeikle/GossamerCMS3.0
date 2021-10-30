@@ -12,7 +12,6 @@ class UsersServiceTest extends TestCase
 
         $user = $usersService->get(ContextSeeds::BASE_USER_ID);
 
-        die(var_dump($user->toArray()));
         $this->assertNotNull($user);
         $this->assertEquals($user->id, ContextSeeds::BASE_USER_ID);
     }

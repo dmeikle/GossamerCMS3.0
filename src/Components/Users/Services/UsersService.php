@@ -43,7 +43,7 @@ class UsersService  implements UsersServiceInterface
     }
 
     public function get(string $id) : User {
-        die(DB::getBindings());
+
         return User::where('id', $id)->first();
     }
 }

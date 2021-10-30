@@ -748,59 +748,6 @@ VALUES
 /*!40000 ALTER TABLE `survey_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
-# Dump of table survey_response_headers
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `surveys_user_response_headers`;
-
-CREATE TABLE IF NOT EXISTS `gossamer3`.`surveys_user_response_headers` (
-  `id` VARCHAR(36) NOT NULL,
-  `Surveys_id` VARCHAR(36) NOT NULL,
-  `date_created` DATETIME NULL,
-  `Organizations_Users_id` VARCHAR(36) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_surh_srvs_idx` (`Surveys_id` ASC) VISIBLE,
-  INDEX `fk_surh_oui_idx` (`Organizations_Users_id` ASC) VISIBLE,
-  CONSTRAINT `fk_surh_srvs`
-    FOREIGN KEY (`Surveys_id`)
-    REFERENCES `gossamer3`.`surveys` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_surh_oui`
-    FOREIGN KEY (`Organizations_Users_id`)
-    REFERENCES `gossamer3`.`organizations_users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `gossamer3`.`survey_response_answers` (
-  `id` VARCHAR(36) NOT NULL,
-  `survey_response_headers_id` VARCHAR(36) NOT NULL,
-  `survey_questions_id` VARCHAR(36) NOT NULL,
-  `survey_question_answers_id` VARCHAR(36) NULL,
-  `answer` VARCHAR(100) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_sra_ansrs_id_idx` (`survey_question_answers_id` ASC) ,
-  INDEX `fk_sra_srh_id_idx` (`survey_response_headers_id` ASC) ,
-  INDEX `fk_sra_sq_id_idx` (`survey_questions_id` ASC) ,
-  CONSTRAINT `fk_sra_ansrs_id`
-    FOREIGN KEY (`survey_question_answers_id`)
-    REFERENCES `gossamer3`.`survey_answers` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_sra_srh_id`
-    FOREIGN KEY (`survey_response_headers_id`)
-    REFERENCES `gossamer3`.`survey_response_headers` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_sra_sq_id`
-    FOREIGN KEY (`survey_questions_id`)
-    REFERENCES `gossamer3`.`survey_questions` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 # Dump of table survey_templates
 # ------------------------------------------------------------
 
@@ -890,6 +837,39 @@ CREATE TABLE `surveys_responses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+
+
+
+/*commenting out because mysql won't pull this in without errors
+
+CREATE TABLE IF NOT EXISTS `gossamer3`.`survey_response_answers` (
+    `id` VARCHAR(36) NOT NULL,
+    `survey_response_headers_id` VARCHAR(36) NOT NULL,
+    `survey_questions_id` VARCHAR(36) NOT NULL,
+    `survey_question_answers_id` VARCHAR(36) NULL,
+    `answer` VARCHAR(100) NULL
+    PRIMARY KEY (`id`)
+   )
+    ENGINE = InnoDB;
+    INDEX `fk_sra_ansrs_id_idx` (`survey_question_answers_id` ASC) ,
+    INDEX `fk_sra_srh_id_idx` (`survey_response_headers_id` ASC) ,
+    INDEX `fk_sra_sq_id_idx` (`survey_questions_id` ASC)
+--     CONSTRAINT `fk_sra_ansrs_id`
+    FOREIGN KEY (`survey_question_answers_id`)
+    REFERENCES `gossamer3`.`survey_answers` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_sra_srh_id`
+    FOREIGN KEY (`survey_response_headers_id`)
+    REFERENCES `gossamer3`.`survey_response_headers` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_sra_sq_id`
+    FOREIGN KEY (`survey_questions_id`)
+    REFERENCES `gossamer3`.`survey_questions` (`id`)
+     ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+*/
 
 # Dump of table telephone_types
 # ------------------------------------------------------------
@@ -1018,11 +998,37 @@ VALUES
 	('e6fc5979-8d0f-4b92-8786-734b63fd71cc','Unit','Test',NULL,'2021-06-19 17:33:40','2021-06-19 17:33:40',1,NULL),
 	('f7838968-9ea1-4b59-911c-8996249241a2','Unit','Test',NULL,'2021-06-19 16:53:51','2021-06-19 16:53:50',1,NULL);
 
+
+
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
+# Dump of table survey_response_headers
+# ------------------------------------------------------------
+/*
+DROP TABLE IF EXISTS `surveys_user_response_headers`;
 
+CREATE TABLE IF NOT EXISTS `gossamer3`.`surveys_user_response_headers` (
+    `id` VARCHAR(36) NOT NULL,
+    `Surveys_id` VARCHAR(36) NOT NULL,
+    `date_created` DATETIME NULL,
+    `Organizations_Users_id` VARCHAR(36) NULL,
+    PRIMARY KEY (`id`),
+    INDEX `fk_surh_srvs_idx` (`Surveys_id` ASC),
+    INDEX `fk_surh_oui_idx` (`Organizations_Users_id` ASC),
+    CONSTRAINT `fk_surh_srvs`
+    FOREIGN KEY (`Surveys_id`)
+    REFERENCES `gossamer3`.`surveys` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_surh_oui`
+    FOREIGN KEY (`Organizations_Users_id`)
+    REFERENCES `gossamer3`.`organizations_users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
 
+*/
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
