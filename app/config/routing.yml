@@ -1,0 +1,6 @@
+
+default:
+  component: 'src/components/home/config/routing.yml'
+
+users:
+  component: 'src/Components/Users/Config/routing.yml'

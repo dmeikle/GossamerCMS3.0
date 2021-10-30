@@ -1,0 +1,53 @@
+
+users_list:
+  pattern: /users/{offset}/{limit}
+  defaults:
+    component: Components\Users\UsersComponent
+    controller: Components\Users\Controllers\UsersController
+    model: Components\Users\Models\User
+    method: listall
+    view: Gossamer\Core\Views\JsonView
+    viewKey: users_list
+    datasource: datasource1
+  methods: [GET]
+
+
+users_save:
+  pattern: /users
+  defaults:
+    component: Components\Users\UsersComponent
+    controller: Components\Users\Controllers\UsersController
+    model: Components\Users\Models\User
+    method: save
+    view: Gossamer\Core\Views\JsonView
+    viewKey: users_save
+    datasource: datasource1
+  methods: [POST]
+
+users_get:
+  pattern: /users/{user}
+  defaults:
+    component: Components\Users\UsersComponent
+    controller: Components\Users\Controllers\UsersController
+    model: Components\Users\Models\User
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: users_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'user': 'Components\Users\Models\User'}
+
+users_test:
+  pattern: /users/test/test/{userId}
+  defaults:
+    component: Components\Users\UsersComponent
+    controller: Components\Users\Controllers\UsersController
+    model: Components\Users\Models\User
+    method: get2
+    view: Gossamer\Core\Views\JsonView
+    viewKey: users_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'user': 'Components\Users\Models\User'}
