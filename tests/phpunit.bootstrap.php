@@ -49,8 +49,8 @@ $capsule->addConnection([
     "driver" => "mysql",
     "host" =>"127.0.0.1",
     "database" => "gossamer3",
-    "username" => "goss3_user",
-    "password" => "dh7djsdk4"
+    "username" => "user",
+    "password" => "user"
 ]);
 
 $capsule->setAsGlobal();

@@ -2,7 +2,7 @@
 
 namespace Components\Users\Services;
 
-use ContextSeeds;
+use tests\ContextSeeds;
 use PHPUnit\Framework\TestCase;
 
 class UsersServiceTest extends TestCase
@@ -12,7 +12,8 @@ class UsersServiceTest extends TestCase
 
         $user = $usersService->get(ContextSeeds::BASE_USER_ID);
 
+        die(var_dump($user->toArray()));
         $this->assertNotNull($user);
-        $this->assertEquals($user->getId(), ContextSeeds::BASE_USER_ID);
+        $this->assertEquals($user->id, ContextSeeds::BASE_USER_ID);
     }
 }

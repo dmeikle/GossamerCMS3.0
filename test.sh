@@ -1,1 +1,1 @@
-./phpunit --bootstrap tests/phpunit.bootstrap.php tests
+phpunit --bootstrap tests/phpunit.bootstrap.php tests

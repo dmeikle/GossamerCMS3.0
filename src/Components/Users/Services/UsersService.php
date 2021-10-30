@@ -6,6 +6,7 @@ use Components\Users\DTOs\UserDTO;
 use Components\Users\Models\User;
 use Components\Users\Services\Contracts\UsersServiceInterface;
 use Gossamer\Pesedget\Database\Utils\ListResult;
+use Illuminate\Support\Facades\DB;
 
 class UsersService  implements UsersServiceInterface
 {
@@ -42,6 +43,7 @@ class UsersService  implements UsersServiceInterface
     }
 
     public function get(string $id) : User {
-        return User::where('id', $id);
+        die(DB::getBindings());
+        return User::where('id', $id)->first();
     }
 }
