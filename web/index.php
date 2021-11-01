@@ -36,7 +36,7 @@ include_once('../vendor/autoload.php');
 include_once('../app/includes/init.php');
 include_once('../app/includes/bootstrap.php');
 
-$kernel = new \Gossamer\Core\System\Kernel($httpRequest, $httpResponse, $container);
+$kernel = new \Gossamer\Core\System\Kernel($httpRequest, $httpResponse, $container, $eventDispatcher);
 $response = $kernel->run($nodeConfig);
 
 renderResult($response);

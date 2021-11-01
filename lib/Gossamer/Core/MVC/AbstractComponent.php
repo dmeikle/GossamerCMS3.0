@@ -99,7 +99,7 @@ abstract class AbstractComponent
             ), $mergedParameters);
         } else {
            throw new HandlerNotCallableException('unable to match method ' . $this->method . ' to controller with key: ' . $httpRequest->getRequestParams()->getYmlKey());
-        } 
+        }
 
     }
 

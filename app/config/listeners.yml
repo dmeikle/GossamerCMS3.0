@@ -1,0 +1,6 @@
+
+
+all:
+    listeners:
+        - { event: error_occurred, listener: 'Gossamer\Core\Components\ErrorHandling\EventListeners\FatalExceptionListener', datasource: default }
+        - { event: response_end, listener: 'Gossamer\Core\Components\Caching\EventListeners\WriteResultToCacheListener', datasource: default }

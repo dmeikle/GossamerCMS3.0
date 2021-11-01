@@ -130,3 +130,40 @@ function getGUID(){
         return $uuid;
     }
 }
+
+
+function runFilters(string $filterConfigPath, string $ymlKey, string $eventName) {
+
+    global $httpRequest;
+    global $httpResponse;
+    global $eventDispatcher;
+    global $filterService;
+    try {
+
+        $config = loadConfig($filterConfigPath, $ymlKey, 'filters', $eventName);
+
+        $filterService->setFilters($config);
+
+        $result = $filterService->filterRequest($httpRequest, $httpResponse, $eventName);
+
+        if (is_array($result)) {
+            renderResult($result);
+        }
+
+    } catch (\Gossamer\Essentials\Configuration\Exceptions\FileNotFoundException $e) {
+        //nothing needed to run
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+        die;
+        $params = array('code' => $e->getCode(), 'message' => $e->getMessage());
+        $event = new \Gossamer\Horus\EventListeners\Event(\Gossamer\Core\System\KernelEvents::ERROR_OCCURRED, $params);
+        $eventDispatcher->dispatch('all', \Gossamer\Core\System\KernelEvents::ERROR_OCCURRED, $event);
+
+//    $view = new \core\views\HtmlErrorView($siteParams->getSitePath() . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'themes' .
+//    DIRECTORY_SEPARATOR . 'errors' . DIRECTORY_SEPARATOR . $e->getCode() . '.htm');
+//    $view->render();
+//    die;
+
+    }
+
+}

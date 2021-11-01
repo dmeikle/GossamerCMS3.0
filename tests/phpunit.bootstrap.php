@@ -167,7 +167,5 @@ function pr($message) {
     echo "\r\n...end print...\r\n";
 }
 
-function runFilters($filterConfigPath, $ymlKey, $eventName) {
 
-}
 

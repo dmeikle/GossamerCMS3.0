@@ -19,7 +19,8 @@ class SpawnFactory
     }
 
     public function spawn(string $name) {
-        if(!class_exists($name)) {
+
+        if(!class_exists($name) && !interface_exists($name)) {
             return;
         }
 
@@ -29,7 +30,7 @@ class SpawnFactory
 
         if($constructor != null) {
             foreach($constructor->getParameters() as $parameter) {
-                if(!is_null($parameter->getType()->getName())) {
+                if(!is_null($parameter->getType()) && !is_null($parameter->getType()->getName())) {
                     $item = $this->spawn($parameter->getType()->getName());
                     if(!is_null($item)) {
                         $injectors[] = $item;
@@ -104,8 +105,7 @@ class SpawnFactory
         } else {
             $reflection = new \ReflectionFunction($controller[0]);
         }
-
-
+        
             foreach ($reflection->getParameters() as $param) {
                 $attributes = [];
                 if (\PHP_VERSION_ID >= 80000) {

@@ -1,0 +1,9 @@
+all:
+  filters:
+
+    #  - { event: entry_point, filter: 'Gossamer\Core\Components\Caching\Filters\LoadCachedResultFilter', datasource: default }
+    - { event: request_complete, filter: 'Gossamer\Core\Components\Caching\Filters\SaveCachedResultFilter'}
+    - { event: request_serialize , filter: 'components\members\filters\AddLoggedInClientToResponseFilter' }
+    - { event: request_serialize , filter: 'components\staff\filters\AddLoggedInClientToResponseFilter' }
+    - { event: request_start, filter: 'components\shoppingcart\filters\ListOrderedCategoriesFilter', datasource: datasource1, entity: CartCategory, cacheKey: OrderedCategories }
+   # - { event: entry_point , filter: 'components\staff\filters\AddLoggedInClientToResponseFilter' }

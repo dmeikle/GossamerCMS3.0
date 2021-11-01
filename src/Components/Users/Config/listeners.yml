@@ -1,0 +1,4 @@
+
+users_get:
+  listeners:
+    - { 'event': 'request_start', 'listener': 'Components\Users\Listeners\UserLoadedListener'}
