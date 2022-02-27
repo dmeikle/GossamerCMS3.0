@@ -177,7 +177,9 @@ class Router
         $comparator = new URIComparator($cacheManager, $this->httpRequest);
 
         $uriConfig = $comparator->findPattern($configList,  $httpRequest->getRequestParams()->getUri());
-
+        if(!$uriConfig) {
+            throw new URINotFoundException();
+        }
         if(array_key_exists('parameters', $uriConfig)) {
             $httpRequest->getRequestParams()->setUriParameters($uriConfig['parameters']);
         }

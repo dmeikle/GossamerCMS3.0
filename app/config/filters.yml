@@ -7,3 +7,5 @@ all:
     - { event: request_serialize , filter: 'components\staff\filters\AddLoggedInClientToResponseFilter' }
     - { event: request_start, filter: 'components\shoppingcart\filters\ListOrderedCategoriesFilter', datasource: datasource1, entity: CartCategory, cacheKey: OrderedCategories }
    # - { event: entry_point , filter: 'components\staff\filters\AddLoggedInClientToResponseFilter' }
+    - { event: entry_point, filter: 'Gossamer\Ra\JWT\Filters\DecryptJwtFilter' }
+    - { event: exit_point, filter: 'Gossamer\Ra\JWT\Filters\EncryptJwtFilter' }

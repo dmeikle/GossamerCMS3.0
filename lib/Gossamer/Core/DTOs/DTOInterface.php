@@ -4,5 +4,5 @@ namespace Gossamer\Core\DTOs;
 
 interface DTOInterface
 {
-    public function getId(): string;
+    public function getId(): ?string;
 }

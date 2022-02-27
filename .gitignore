@@ -2,5 +2,8 @@
 .composer.bak
 /vendor
 .env
+/app/config/config.yml
+/app/config/credentials.yml
 
 composer.bak
+composer.lock

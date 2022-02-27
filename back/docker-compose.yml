@@ -1,0 +1,45 @@
+version: '3.6'
+services:
+  php:
+    image: php:8.0-apache
+    container_name: gossamercms
+    ports:
+      - 5001:80
+    volumes:
+      - ./:/var/www/html/
+    links:
+      - db
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+#
+#  gossamer:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    image: gossamer
+#    container_name: gossamer-app
+#    restart: unless-stopped
+#    working_dir: /var/www
+#    volumes:
+#      - ./:/var/www
+#    ports:
+#      - 5001:80
+#    networks:
+#      - gossamer
+
+  db:
+    image: mariadb
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gossamer3
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes:
+      - './init:/docker-entrypoint-initdb.d'
+    ports:
+      - '3306:3306'

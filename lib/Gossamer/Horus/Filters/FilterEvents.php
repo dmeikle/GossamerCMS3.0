@@ -22,9 +22,13 @@ class FilterEvents
 {
     const FILTER_REQUEST_START = 'request_start';
 
-    const FILTER_REQUEST_FORWARD = 'request_forward';
+    const FILTER_IMPLICIT_LOAD_COMPLETE = 'implicit_load_complete';
+
+    const FILTER_REQUEST_END = 'request_end';
 
     const FILTER_ENTRY_POINT = 'entry_point';
 
     const FILTER_SERIALIZATION = 'request_serialize';
+
+    const FILTER_EXIT_POINT = 'exit_point';
 }

@@ -1,15 +1,27 @@
-version: '3.6'
+version: '3.1'
+
 services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+ #     - ./src:/var/www/html/
+      - ./:/var/www/html/
+    container_name: gossamercms3-developer
+
+
   db:
-    image: mariadb
-    command: '--default-authentication-plugin=mysql_native_password'
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: gossamer3
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
-    volumes:
-      - './init:/docker-entrypoint-initdb.d'
+      MYSQL_ROOT_PASSWORD: password
+
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - '3306:3306'
+      - 8080:8080

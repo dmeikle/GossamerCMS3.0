@@ -1,0 +1,11 @@
+{
+    "id": "b41c0bfb-328c-4a15-981c-3b678464449a",
+    "title": "Test Recipe 1",
+    "description": "this is a test",
+    "cookTime": "30 min",
+    "prepTime": "12 min",
+    "instructions": "this is a default instruction",
+    "keywords": "test recipe",
+    "slug": "test-recipe",
+    "commentDTOs": []
+}

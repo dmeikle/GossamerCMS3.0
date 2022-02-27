@@ -31,14 +31,16 @@ class ListAllFilter extends AbstractFilter
         if(is_null($params)) {
             $params = array();
         }
-        $params['isActive'] = '1';
-
-        $modelName = $this->filterConfig->get('model');
-        $model = new $modelName($request, $response, $this->container->get('Logger'));
-
-        $list = $this->getEntityManager()->getConnection('datasource1')->query(self::METHOD_GET, $model, 'listminimal', $params);
-
-        $response->setAttribute($this->filterConfig->get('key'), $list[ $this->filterConfig->get('responseKey')]);
+        //need to relate objects with a join
+        $items =($this->filterConfig['model'])::where($idKey, $this->httpRequest->getRequestParams()->getUriParameter($key))->first();
+//        $params['isActive'] = '1';
+//
+//        $modelName = $this->filterConfig->get('model');
+//        $model = new $modelName($request, $response, $this->container->get('Logger'));
+//
+//        $list = $this->getEntityManager()->getConnection('datasource1')->query(self::METHOD_GET, $model, 'listminimal', $params);
+//
+//        $response->setAttribute($this->filterConfig->get('key'), $list[ $this->filterConfig->get('responseKey')]);
 
         try {
             return $chain->execute($request, $response, $chain);

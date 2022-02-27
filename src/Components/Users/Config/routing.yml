@@ -49,5 +49,3 @@ users_test:
     viewKey: users_get
     datasource: datasource1
   methods: [GET]
-  implicitKeys:
-    - { 'user': 'Components\Users\Models\User'}

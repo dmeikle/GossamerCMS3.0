@@ -16,12 +16,23 @@
     "symfony/yaml": "^4.1",
     "illuminate/database": "^8.67",
     "illuminate/support": "^8.67",
-    "ext-dom": "*"
+    "ext-dom": "*",
+    "web-token/jwt-framework": "^2.2",
+    "web-token/jwt-core": "^2.2",
+    "web-token/jwt-encryption": "^2.2",
+    "spomky-labs/aes-key-wrap": "^6.0",
+    "nzo/url-encryptor-bundle": "^6.0",
+    "kriswallsmith/buzz": "^1.2",
+    "nyholm/psr7": "^1.4",
+    "spatie/async": "^1.5"
   },
   "require-dev": {
     "phpunit/phpunit": "^9"
   },
   "classmap": [
     "Library/Classes"
-  ]
+  ],
+  "config": {
+    "platform-check": false
+  }
 }

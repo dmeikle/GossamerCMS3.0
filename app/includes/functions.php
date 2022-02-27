@@ -1,6 +1,9 @@
 <?php
 
-function loadConfig($configPath, $ymlKey = null, $type = null, $keys = null) {
+use Gossamer\Core\Exceptions\FileNotFoundException;
+
+function loadConfig($configPath = null, $ymlKey = null, $type = null, $keys = null) {
+
     $loader = new \Gossamer\Essentials\Configuration\YamlLoader();
 
     $loader->setFilePath($configPath);
@@ -8,7 +11,7 @@ function loadConfig($configPath, $ymlKey = null, $type = null, $keys = null) {
 
     if (!is_null($keys)) {
         if (is_null($config)) {
-            throw new \Gossamer\Essentials\Configuration\Exceptions\FileNotFoundException($configPath . ' does not exist');
+            throw new FileNotFoundException($configPath . ' does not exist');
         }
 
         if (array_key_exists($ymlKey, $config)) {
@@ -95,14 +98,22 @@ function class_uses_deep($class, $autoload = true)
     return array_unique($traits);
 }
 
-function renderResult(\Gossamer\Core\Http\Responses\AbstractResponse $response) {
+function renderResult(\Gossamer\Core\Http\Responses\AbstractResponse $response,
+    \Gossamer\Horus\Http\HttpRequest $httpRequest,
+    \Gossamer\Horus\Http\HttpResponse $httpResponse) {
+
+    runFilters($httpRequest->getSiteParams()->getConfigPath() . 'filters.yml', 'all',\Gossamer\Horus\Filters\FilterEvents::FILTER_EXIT_POINT);
 
     foreach ($response->getHeaders() as $header) {
-
+        header($header);
+    }
+    foreach ($httpResponse->getHeaders() as $header) {
         header($header);
     }
     foreach($response->getCookies() as $key => $cookie) {
-
+        setcookie($key, $cookie);
+    }
+    foreach ($httpResponse->getCookies() as $key => $cookie) {
         setcookie($key, $cookie);
     }
 
@@ -142,6 +153,10 @@ function runFilters(string $filterConfigPath, string $ymlKey, string $eventName)
 
         $config = loadConfig($filterConfigPath, $ymlKey, 'filters', $eventName);
 
+        if(is_null($config)) {
+            //nothing to do
+            return;
+        }
         $filterService->setFilters($config);
 
         $result = $filterService->filterRequest($httpRequest, $httpResponse, $eventName);
@@ -150,7 +165,7 @@ function runFilters(string $filterConfigPath, string $ymlKey, string $eventName)
             renderResult($result);
         }
 
-    } catch (\Gossamer\Essentials\Configuration\Exceptions\FileNotFoundException $e) {
+    } catch (FileNotFoundException $e) {
         //nothing needed to run
     } catch (\Exception $e) {
         echo $e->getMessage();

@@ -29,11 +29,17 @@ class ImplicitLoader
         if(array_key_exists('implicitKeys', $params[$this->httpRequest->getYmlKey()])) {
             foreach ($params[$this->httpRequest->getYmlKey()]['implicitKeys'] as $implicitKey) {
                foreach($implicitKey as $key => $className) {
-                    $item =($className)::where('id', $this->httpRequest->getRequestParams()->getUriParameter($key))->first();
+                   if($key == 'key') {
+                       continue;
+                   }
+
+                    $idKey = array_key_exists('key', $implicitKey) ? $implicitKey['key'] : 'id';
+
+                    $item =($className)::where($idKey, $this->httpRequest->getRequestParams()->getUriParameter($key))->first();
                     if(!is_null($item) ) {
                         $this->httpRequest->setImplicitParameter($className, $item);
                     }else {
-                        throw new RecordNotFoundException('Unable to locate ' . $key . ' with id ' .
+                        throw new RecordNotFoundException('Unable to locate ' . $key . ' with ' . $idKey . ' ' .
                             $this->httpRequest->getRequestParams()->getUriParameter($key));
                     }
                 }

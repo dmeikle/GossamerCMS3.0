@@ -13,24 +13,26 @@ class HttpRequest extends Request
 
     protected $nodeConfig;
 
+    protected $siteParams;
+
     public function __construct(RequestParams $requestParams, SiteParams $siteParams) {
         $this->requestParams = $requestParams;
         $this->siteParams = $siteParams;
     }
 
-    public function getMethod() {
+    public function getMethod() : string {
         return $this->requestParams->getMethod();
     }
 
-    public function getYmlKey() {
+    public function getYmlKey() : string {
         return $this->requestParams->getYmlKey();
     }
 
-    public function getSiteParams() {
+    public function getSiteParams() : SiteParams{
         return $this->siteParams;
     }
 
-    public function getRequestParams() {
+    public function getRequestParams() : RequestParams {
         return $this->requestParams;
     }
 
@@ -44,7 +46,7 @@ class HttpRequest extends Request
     /**
      * @return mixed
      */
-    public function getNodeConfig() : array{
+    public function getNodeConfig() : array {
         return $this->nodeConfig;
     }
 

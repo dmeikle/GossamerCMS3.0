@@ -924,16 +924,16 @@ LOCK TABLES `user_invites` WRITE;
 
 INSERT INTO `user_invites` (`id`, `firstname`, `lastname`, `email`, `entities_id`, `organizations_id`, `inviter_user_id`, `date_onboarded`, `date_invited`)
 VALUES
-	('36c57b3e-7791-4393-89b7-919e76d24a4f','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:04:41'),
-	('4e7a5eab-22e5-43fa-8693-d57b7e53825a','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:47:39'),
-	('6f3099d3-f346-48c7-8d05-b8627d8e6818','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:49:30'),
-	('717ad939-d70d-45c1-bff7-327b79e0f2ce','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:36:12'),
-	('973c1568-866e-4435-94d0-d29941312187','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:46:01'),
-	('a375b312-947e-49c5-bb22-cd7e4da205d5','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 16:45:31'),
-	('a81d8699-9a3d-45cb-a7b5-534c9dcdf15c','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:11:42'),
-	('b07818b1-74d4-40d9-aaeb-2d4557206a09','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:39:17'),
-	('f048ef56-5382-4fa2-8655-8f23d04ab1d9','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:01:29'),
-	('faa1225b-03f3-4015-b6a3-17caafad31a7','David','Meikle','davemeikle@ymail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:10:55');
+	('36c57b3e-7791-4393-89b7-919e76d24a4f','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:04:41'),
+	('4e7a5eab-22e5-43fa-8693-d57b7e53825a','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:47:39'),
+	('6f3099d3-f346-48c7-8d05-b8627d8e6818','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:49:30'),
+	('717ad939-d70d-45c1-bff7-327b79e0f2ce','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:36:12'),
+	('973c1568-866e-4435-94d0-d29941312187','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:46:01'),
+	('a375b312-947e-49c5-bb22-cd7e4da205d5','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 16:45:31'),
+	('a81d8699-9a3d-45cb-a7b5-534c9dcdf15c','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:11:42'),
+	('b07818b1-74d4-40d9-aaeb-2d4557206a09','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-16 20:39:17'),
+	('f048ef56-5382-4fa2-8655-8f23d04ab1d9','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:01:29'),
+	('faa1225b-03f3-4015-b6a3-17caafad31a7','David','Meikle','davemeikle@gmail.com',NULL,'b90beaba-22c2-454f-90ce-0c89764c3c86','d73cc933-0331-42ba-a631-9a470ad13731',NULL,'2021-08-15 17:10:55');
 
 /*!40000 ALTER TABLE `user_invites` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1029,6 +1029,28 @@ CREATE TABLE IF NOT EXISTS `gossamer3`.`surveys_user_response_headers` (
     ENGINE = InnoDB;
 
 */
+
+
+CREATE TABLE `recipes` (
+                           `id` varchar(36) NOT NULL,
+                           `title` varchar(200) NOT NULL,
+                           `description` varchar(500) NOT NULL,
+                           `prep_time` varchar(100) NOT NULL,
+                           `cook_time` varchar(100) NOT NULL,
+                           `instructions` text NOT NULL,
+                           `created_at` datetime NOT NULL,
+                           `created_by` varchar(36) NOT NULL,
+                           `updated_at` datetime NOT NULL,
+                           `updated_by` varchar(36) NOT NULL,
+                           `deleted_at` datetime DEFAULT NULL,
+                           `keywords` varchar(200) DEFAULT NULL,
+                           `slug` varchar(50) DEFAULT NULL,
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+
+
+
+
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

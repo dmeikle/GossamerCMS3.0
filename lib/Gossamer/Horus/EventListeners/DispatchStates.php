@@ -14,5 +14,7 @@ class DispatchStates
 
     const STATE_REQUEST_COMPLETE = 'request_complete';
 
+    const STATE_EXIT_POINT = 'exit_point';
+
 
 }

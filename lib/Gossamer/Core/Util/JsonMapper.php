@@ -2,6 +2,8 @@
 
 namespace Gossamer\Core\Util;
 
+use Gossamer\Core\DTOs\DTOInterface;
+
 class JsonMapper
 {
 
@@ -18,7 +20,7 @@ class JsonMapper
             $retval = self::iterate($object);
         }
 
-        return json_encode($retval);
+        return json_encode($retval, JSON_PRETTY_PRINT);
     }
 
     private static function iterate($object)
@@ -42,11 +44,30 @@ class JsonMapper
             $key = lcfirst(substr($method->name, 3));
             $returnType = $reflectionMethod->getReturnType();
 
+//               if( $reflectionMethod->hasReturnType() &&  $returnType == 'array') {
+//                   //echo "$key to json\r\n";
+//                   $subObject = $reflectionMethod->invoke($object);
+//                   if(!is_null($object) && $subObject[0] instanceof DTOInterface) {
+//                       $retval[$key] = self::toJson($subObject);
+//                      // dd($subObject);
+//                   }
+//               }
 
             if (!is_null($returnType) && is_object($reflectionMethod->getReturnType())) {
                 $retval[$key] = self::iterate($reflectionMethod->invoke($object));
+            } elseif ($returnType == 'array') {
+                echo "to json\r\n";
+                dd($object);
+
             } else {
-                $retval[$key] = $reflectionMethod->invoke($object);
+
+
+                if($object instanceof DTOInterface) {
+                    //$retval[$key] = self::toJson($object);// self::iterate($reflectionMethod->invoke($object));
+                }else{
+                    $retval[$key] = $reflectionMethod->invoke($object);
+                }
+
             }
 
         }

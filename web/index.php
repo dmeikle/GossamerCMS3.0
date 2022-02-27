@@ -39,4 +39,4 @@ include_once('../app/includes/bootstrap.php');
 $kernel = new \Gossamer\Core\System\Kernel($httpRequest, $httpResponse, $container, $eventDispatcher);
 $response = $kernel->run($nodeConfig);
 
-renderResult($response);
+renderResult($response, $httpRequest, $httpResponse);

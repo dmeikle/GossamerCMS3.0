@@ -4,9 +4,9 @@ namespace Components\Users\Http\Requests;
 
 use Components\Users\DTOs\UserDTO;
 use Gossamer\Core\DTOs\DTOInterface;
-use Gossamer\Core\Http\Requests\FormRequest;
+use Gossamer\Core\Http\Requests\PostRequest;
 
-class SaveUserRequest extends FormRequest
+class SaveUserRequest extends PostRequest
 {
 
 
@@ -14,7 +14,8 @@ class SaveUserRequest extends FormRequest
     {
        return new UserDTO(
            $this->id,
-            $this->firstname
+            $this->firstname,
+           $this->lastname
        );
 
     }

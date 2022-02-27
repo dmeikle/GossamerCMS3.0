@@ -61,6 +61,9 @@ class RequestParams
      * @return mixed
      */
     public function getUriParameters() {
+        if(is_null($this->uriParameters)) {
+            return array();
+        }
         return $this->uriParameters;
     }
 

@@ -4,7 +4,8 @@ namespace tests;
 
 class ContextSeeds
 {
-     const BASE_USER_ID = "d73cc933-0331-42ba-a631-9a470ad13731";
+     //const BASE_USER_ID = "d73cc933-0331-42ba-a631-9a470ad13731";
+    const BASE_USER_ID = '0C30457D-50F0-DE6F-C734-5E36231F022C';
      const BASE_ORGANIZATION_ID = "b90beaba-22c2-454f-90ce-0c89764c3c86";
      const BASE_USERENTITY_ID = "5f739dbb-59da-483d-b230-ec64307ba90e";
      const BASE_UPDATABLE_USER_ID = "999a19d0-404f-4bb3-b164-d50f2cdd855b";

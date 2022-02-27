@@ -8,17 +8,10 @@ use Gossamer\Core\DTOs\DTOInterface;
 class UserDTO extends AbstractDTO implements DTOInterface
 {
 
-    public function __construct(string $id = '', string $firstname, TestDTO $testDTO = null)
-    {
-        $this->id = $id;
-        $this->firstname = $firstname;
-        $this->testDTO = $testDTO;
-    }
-
     /**
-     * @var TestDTO|null
+     * @var string
      */
-    private $testDTO;
+    private string $lastname;
 
     /**
      * @Param string
@@ -29,6 +22,20 @@ class UserDTO extends AbstractDTO implements DTOInterface
      * @Param string
      */
     private $firstname;
+
+    /**
+     * @Param string
+     */
+    private $createdAt;
+
+
+    public function __construct(string $id = null, string $firstname, string $lastname, string $createdAt = null)
+    {
+        $this->id = $id;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->createdAt = $createdAt;
+    }
 
     /**
      * @param  int
@@ -47,11 +54,21 @@ class UserDTO extends AbstractDTO implements DTOInterface
     }
 
     /**
-     * @return TestDTO
+     * @return string
      */
-    public function getTestDTO(): TestDTO
-    {
-        return $this->testDTO;
+    public function getLastname() : string {
+        return $this->lastname;
     }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+
+
 
 }

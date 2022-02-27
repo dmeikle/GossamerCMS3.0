@@ -78,7 +78,6 @@ abstract class AbstractComponent
      */
     public function handleRequest(HttpRequest &$httpRequest, HttpResponse &$httpResponse) {
 
-
         //if it throws an exception we are catching it in the calling Kernel
         if (is_callable($this->controllerName,$this->method)) {
 
@@ -90,7 +89,6 @@ abstract class AbstractComponent
             $controller->setView($view);
             $arguments = $spawnFactory->getArguments($controller, $this->method);
             $implicitParameters = $httpRequest->getImplicitParameters();
-
             $mergedParameters = $this->mergeParameters($httpRequest, $implicitParameters, $arguments);
 
             return call_user_func_array(array(

@@ -5,22 +5,21 @@ namespace Components\Users\Services;
 use Components\Users\DTOs\UserDTO;
 use Components\Users\Models\User;
 use Components\Users\Services\Contracts\UsersServiceInterface;
+use Gossamer\Core\MVC\AbstractService;
 use Gossamer\Pesedget\Database\Utils\ListResult;
-use Illuminate\Support\Facades\DB;
 
-class UsersService  implements UsersServiceInterface
+class UsersService extends AbstractService implements UsersServiceInterface
 {
 
-    public function save(UserDTO $userDto) : User{
-
-        $user = User::updateOrCreate(
+    public function save(UserDTO $userDto) : User {
+        return User::updateOrCreate(
             [
                 'id' => $this->getKey($userDto),
-                'firstname' => $userDto->getFirstname()
+                'firstname' => $userDto->getFirstname(),
+                'lastname' => $userDto->getLastname(),
+                'created_at' => $userDto->getCreatedAt()
             ]
         );
-
-        return $user;
     }
 
     public function list(int $offset, int $limit)

@@ -1,0 +1,67 @@
+
+admin_blogs_list:
+  pattern: /admin/blogs/{offset}/{limit}
+  defaults:
+    component: Components\Blogs\BlogsComponent
+    controller: Components\Blogs\Controllers\BlogsController
+    model: Components\Blogs\Models\Blog
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_blogs_list
+    datasource: datasource1
+  methods: [GET]
+
+
+admin_blogs_get:
+  pattern: /blogs/{blog}
+  defaults:
+    component: Components\Blogs\BlogsComponent
+    controller: Components\Blogs\Controllers\BlogsController
+    model: Components\Blogs\Models\Blog
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_blogs_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'blog': 'Components\Blogs\Models\Blog'}
+
+
+admin_blogs_save:
+  pattern: /admin/blogs
+  defaults:
+    component: Components\Blogs\BlogsComponent
+    controller: Components\Blogs\Controllers\BlogsController
+    model: Components\Blogs\Models\Blog
+    method: save
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_blogs_save
+    datasource: datasource1
+  methods: [POST]
+
+blogs_home:
+  pattern: /blogs/{offset}/{limit}
+  defaults:
+    component: Components\Blogs\BlogsComponent
+    controller: Components\Blogs\Controllers\BlogsController
+    model: Components\Blogs\Models\Blog
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: blogs_home
+    datasource: datasource1
+  methods: [GET]
+
+
+blogs_get:
+  pattern: /blogs/{blog}
+  defaults:
+    component: Components\Blogs\BlogsComponent
+    controller: Components\Blogs\Controllers\BlogsController
+    model: Components\Blogs\Models\Blog
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: blogs_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'blog': 'Components\Blogs\Models\Blog'}

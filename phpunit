@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+echo "Dropping databases."
+mysql -ugoss3_user -pdh7djsdk4 -e 'DROP DATABASE IF EXISTS gossamer3_phpunit;'
+
+echo "Creating databases."
+mysql -ugoss3_user -pdh7djsdk4 -e 'CREATE DATABASE gossamer3_phpunit;'
+
+echo "migrating tables."
+mysql -ugoss3_user -pdh7djsdk4 'gossamer3_phpunit' < ./tests/scripts/gossamer.sql
+
+
+echo "Populating database."
+#mysql -hmariadb -uroot -ppassword < /var/www/vhosts/elentra-1x-api/init/seed.sql
+
+
+#./vendor/bin/phpunit --bootstrap tests/phpunit.bootstrap.php tests/integration/Extensions/Recipes/Services/RecipesServiceTest.php
+#./vendor/bin/phpunit --bootstrap tests/phpunit.bootstrap.php tests/integration/Components/Dashboard/Services/SettingsServiceTest.php
+./vendor/bin/phpunit --bootstrap tests/phpunit.bootstrap.php tests/integration

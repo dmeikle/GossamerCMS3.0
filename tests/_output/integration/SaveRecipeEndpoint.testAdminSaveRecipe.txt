@@ -1,0 +1,11 @@
+{
+    "id": "0",
+    "title": "phpunit recipe test",
+    "description": "Test user",
+    "cookTime": "12 min",
+    "prepTime": "5 min",
+    "instructions": "Test php unit",
+    "keywords": "phpunit kw",
+    "slug": "phpunit test",
+    "commentDTOs": null
+}

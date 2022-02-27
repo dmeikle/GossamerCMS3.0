@@ -1,0 +1,56 @@
+
+dashboard_home:
+  pattern: /dashboard/index
+  defaults:
+    component: Components\Dashboard\DashboardComponent
+    controller: Components\Dashboard\Controllers\DashboardController
+    model: Components\Users\Models\User
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: dashboard_home
+    datasource: datasource1
+  methods: [GET]
+
+
+
+admin_settings_list:
+  pattern: /admin/settings
+  defaults:
+    component: Components\Dashboard\DashboardComponent
+    controller: Components\Dashboard\Controllers\SettingsController
+    model: Components\Dashboard\Models\Setting
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_settings_list
+    datasource: datasource1
+  methods: [GET]
+
+
+admin_settings_get:
+  pattern: /admin/settings/{id}
+  defaults:
+    component: Components\Dashboard\DashboardComponent
+    controller: Components\Dashboard\Controllers\SettingsController
+    model: Components\Dashboard\Models\Setting
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_settings_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'setting': 'Components\Dashboard\Models\Setting'}
+
+
+admin_settings_save:
+  pattern: /admin/settings/{setting_group_id}
+  defaults:
+    component: Components\Dashboard\DashboardComponent
+    controller: Components\Dashboard\Controllers\SettingsController
+    model: Components\Dashboard\Models\Setting
+    method: save
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_settings_save
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'settingGroup': 'Components\Dashboard\Models\SettingGroup', 'idKey' => setting_group_id }

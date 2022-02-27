@@ -1,0 +1,1 @@
+{"id":"255bffad-7689-4821-b53c-ace793319530","setting_groups_id":1,"name":"test setting","description":"this is a setting","priority":0,"is_active":1,"value":"1","key":"setting_1","updated_at":null,"created_at":null}

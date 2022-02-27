@@ -54,8 +54,10 @@ class EventDispatcher
         $this->datasources = $datasources;
     }
 
-    public function setConfiguration(array $config, $ymlkey = null) {
-
+    public function setConfiguration(array $config = null, $ymlkey = null) {
+        if(is_null($config)) {
+            return;
+        }
         if(!is_null($ymlkey)) {
             $this->ymlKey = $ymlkey;
         }

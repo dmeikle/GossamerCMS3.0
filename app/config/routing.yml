@@ -4,3 +4,11 @@ default:
 
 users:
   component: 'src/Components/Users/Config/routing.yml'
+blogs:
+  component: 'src/Components/Blogs/Config/routing.yml'
+
+recipes:
+  component: 'src/Components/Recipes/Config/routing.yml'
+
+dashboard:
+  component: 'src/Components/Dashboard/Config/routing.yml'

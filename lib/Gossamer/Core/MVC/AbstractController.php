@@ -9,6 +9,7 @@ use Gossamer\Horus\EventListeners\DispatchStates;
 use Gossamer\Horus\EventListeners\Event;
 use Gossamer\Horus\EventListeners\EventDispatcher;
 use Gossamer\Horus\EventListeners\EventDispatcherTrait;
+use Gossamer\Horus\Filters\FilterEvents;
 use Gossamer\Horus\Http\Traits\HttpRequestTrait;
 use Gossamer\Horus\Http\Traits\HttpResponseTrait;
 use Gossamer\Neith\Logging\LoggingInterface;
@@ -48,10 +49,20 @@ class AbstractController
 
     protected function render(AbstractResponse $data)
     {
+        $siteConfig = $this->httpRequest->getSiteParams();
+
+        runFilters($siteConfig->getSitePath() . DIRECTORY_SEPARATOR .
+            $this->httpRequest->getNodeConfig()['componentPath'] .
+            DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'filters.yml',
+            $this->httpRequest->getRequestParams()->getYmlKey(),
+            FilterEvents::FILTER_REQUEST_END);
+
         $event = new Event($this->httpRequest->getYmlKey(), $data);
         $this->eventDispatcher->dispatch($this->httpRequest->getYmlKey(),
             DispatchStates::STATE_BEGIN_VIEW, $event);
+
         $rendered = $this->view->render($data->getBody());
+
         $this->eventDispatcher->dispatch($this->httpRequest->getYmlKey(),
             DispatchStates::STATE_END_VIEW, $event);
 

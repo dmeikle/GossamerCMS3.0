@@ -1,0 +1,207 @@
+
+admin_recipes_comments_get:
+  pattern: /admin/recipes/comments/{recipeComment}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipeCommentsController
+    model: Extensions\Recipes\Models\RecipeComment
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_recipes_comments_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'recipeComment': 'Extensions\Recipes\Models\RecipeComment', 'key': id }
+    -
+admin_recipes_comments_delete:
+  pattern: /admin/recipes/comments/{recipeComment}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipeCommentsController
+    model: Extensions\Recipes\Models\RecipeComment
+    method: delete
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_recipes_comments_delete
+    datasource: datasource1
+  methods: [DELETE]
+  implicitKeys:
+    - { 'recipeComment': 'Extensions\Recipes\Models\RecipeComment', 'key': id}
+
+admin_recipes_home:
+  pattern: /admin/recipes/{offset}/{limit}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipesController
+    model: Extensions\Recipes\Models\Recipe
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_recipes_home
+    datasource: datasource1
+  methods: [GET]
+
+admin_recipes_get:
+  pattern: /admin/recipes/{recipe}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipesController
+    model: Extensions\Recipes\Models\Recipe
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_recipes_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'recipe': 'Extensions\Recipes\Models\Recipe', 'key': id }
+
+
+admin_recipes_save:
+  pattern: /admin/recipes
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipesController
+    model: Extensions\Recipes\Models\Recipe
+    method: save
+    view: Gossamer\Core\Views\JsonView
+    viewKey: admin_recipes_save
+    datasource: datasource1
+  methods: [POST]
+
+
+recipes_home:
+  pattern: /recipes/{offset}/{limit}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipesController
+    model: Extensions\Recipes\Models\Recipe
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: recipes_home
+    datasource: datasource1
+  methods: [GET]
+
+
+recipes_save:
+  pattern: /recipes
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipesController
+    model: Extensions\Recipes\Models\Recipe
+    method: save
+    view: Gossamer\Core\Views\JsonView
+    viewKey: recipes_save
+    datasource: datasource1
+  methods: [POST]
+
+recipes_getbyslug:
+  pattern: /recipes/{recipe}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipesController
+    model: Extensions\Recipes\Models\Recipe
+    method: getBySlug
+    view: Gossamer\Core\Views\JsonView
+    viewKey: recipes_getbyslug
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'recipe': 'Extensions\Recipes\Models\Recipe', 'key': slug }
+#
+#recipes_get:
+#  pattern: /recipes/{recipe}
+#  defaults:
+#    component: Extensions\Recipes\RecipesComponent
+#    controller: Extensions\Recipes\Controllers\RecipesController
+#    model: Extensions\Recipes\Models\Recipe
+#    method: get
+#    view: Gossamer\Core\Views\JsonView
+#    viewKey: recipes_get
+#    datasource: datasource1
+#  methods: [GET]
+#  implicitKeys:
+#    - { 'recipe': 'Extensions\Recipes\Models\Recipe', 'key': id}
+#
+
+
+
+
+
+recipes_categories_get:
+  pattern: /recipes/categories/{recipe}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipeCategoriesController
+    model: Extensions\Recipes\Models\RecipeCategory
+    method: get
+    view: Gossamer\Core\Views\JsonView
+    viewKey: recipes_get
+    datasource: datasource1
+  methods: [GET]
+  implicitKeys:
+    - { 'recipe': 'Extensions\Recipes\Models\RecipeCategory', 'key': slug}
+
+recipes_categories_home:
+  pattern: /recipes/categories/{offset}/{limit}
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipeCategoriesController
+    model: Extensions\Recipes\Models\RecipeCategory
+    method: index
+    view: Gossamer\Core\Views\JsonView
+    viewKey: recipes_categories_home
+    datasource: datasource1
+  methods: [GET]
+
+recipes_categories_save:
+  pattern: /recipes/categories
+  defaults:
+    component: Extensions\Recipes\RecipesComponent
+    controller: Extensions\Recipes\Controllers\RecipeCategoriesController
+    model: Extensions\Recipes\Models\RecipeCategory
+    method: save
+    view: Gossamer\Core\Views\JsonView
+    viewKey: recipes_categories_save
+    datasource: datasource1
+  methods: [POST]
+
+
+
+
+#
+#recipe_comments_home:
+#  pattern: /recipes/comments/{offset}/{limit}
+#  defaults:
+#    component: Extensions\Recipes\RecipesComponent
+#    controller: Extensions\Recipes\Controllers\RecipeCommentsController
+#    model: Extensions\Recipes\Models\RecipeComment
+#    method: index
+#    view: Gossamer\Core\Views\JsonView
+#    viewKey: recipes_home
+#    datasource: datasource1
+#  methods: [GET]
+#
+#
+#recipe_comments_save:
+#  pattern: /recipes
+#  defaults:
+#    component: Extensions\Recipes\RecipesComponent
+#    controller: Extensions\Recipes\Controllers\RecipeCommentsController
+#    model: Extensions\Recipes\Models\RecipeComment
+#    method: save
+#    view: Gossamer\Core\Views\JsonView
+#    viewKey: recipes_save
+#    datasource: datasource1
+#  methods: [POST]
+#
+#recipe_comments_getbyslug:
+#  pattern: /recipes/{recipe}
+#  defaults:
+#    component: Extensions\Recipes\RecipesComponent
+#    controller: Extensions\Recipes\Controllers\RecipeCommentsController
+#    model: Extensions\Recipes\Models\RecipeComment
+#    method: getBySlug
+#    view: Gossamer\Core\Views\JsonView
+#    viewKey: recipes_getbyslug
+#    datasource: datasource1
+#  methods: [GET]
+#  implicitKeys:
+#    - { 'recipe': 'Extensions\Recipes\Models\RecipeComment', 'key': slug}

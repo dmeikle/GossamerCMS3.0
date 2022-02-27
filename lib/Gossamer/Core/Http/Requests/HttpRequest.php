@@ -14,4 +14,12 @@ class HttpRequest extends \Gossamer\Horus\Http\HttpRequest
     public function getImplicitParameters() {
         return $this->implicitParameters;
     }
+
+    public function getImplicitParameter($key) {
+        if(array_key_exists($key, $this->implicitParameters)) {
+            return $this->implicitParameters[$key];
+        }
+
+        return null;
+    }
 }

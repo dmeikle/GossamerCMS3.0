@@ -1,0 +1,12 @@
+
+recipes_getbyslug:
+    filters:
+        - {
+          event: implicit_load_complete,
+          filter: 'Components\Recipes\Filters\ListAllRecipeCommentsByRecipeFilter',
+          model: 'Components\Recipes\Models\RecipeComment',
+
+          datasource: datasource1,
+          entity: RecipeComment,
+          cacheKey: OrderedCategories
+        }

@@ -20,16 +20,28 @@ class UsersController extends AbstractController
 
     protected $testService;
 
-    public function __construct(EventDispatcher $eventDispatcher, LoggingInterface $logger, UsersService $usersService, TestService $testService) {
+    public function __construct(
+        EventDispatcher $eventDispatcher,
+        LoggingInterface $logger,
+        UsersService $usersService,
+        TestService $testService
+    ) {
         parent::__construct($eventDispatcher, $logger);
         $this->usersService = $usersService;
         $this->testService = $testService;
     }
 
     public function get2($id)
-    {echo 'here';
-        dd($id);
+    {
+        $encryptor = $this->container->get('Encryptor');
 
+        $encrypted = $encryptor->encrypt("david");
+        $decrypted = $encryptor->decrypt($encrypted);
+
+        return $this->render((new SuccessResponse())
+            ->setStatus('success')
+            ->setCode(200)
+            ->setBody("'$decrypted'"));
     }
 
     public function get(User $user)
@@ -42,7 +54,6 @@ class UsersController extends AbstractController
                 $user->firstname,
                 new TestDTO('this is a test')
             )));
-
     }
 
     public function listall($offset, $limit)
@@ -50,8 +61,7 @@ class UsersController extends AbstractController
         $result = $this->usersService->list($offset, $limit);
         $list = $result->getList()->toArray();
 
-        array_walk($list, function($user, $key) use (&$results) {
-
+        array_walk($list, function ($user, $key) use (&$results) {
             $results[] = new UserDTO(
                 $user['id'],
                 $user['firstname'],
@@ -65,8 +75,8 @@ class UsersController extends AbstractController
             ->setBody($results));
     }
 
-    public function save(SaveUserRequest $request) {
-
+    public function save(SaveUserRequest $request)
+    {
         $user = $this->usersService->save($request->post());
 
         return $this->render((new SuccessResponse())
@@ -76,8 +86,8 @@ class UsersController extends AbstractController
                 new UserDTO(
                     $user->id,
                     $user->firstname,
-                    new TestDTO('this is a test')
+                   $user->lastname
                 ))
-           );
+        );
     }
 }
