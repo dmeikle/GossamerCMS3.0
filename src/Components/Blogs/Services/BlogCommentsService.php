@@ -13,7 +13,7 @@ class RecipeCommentsService extends AbstractService implements RecipeCommentsSer
 
     public function save(
         SaveRecipeCommentDTO $recipeCommentDTO,
-        int $userId
+        string $userId
     ): RecipeComment {
         $recipeComment = RecipeComment::create(
             [
@@ -37,7 +37,7 @@ class RecipeCommentsService extends AbstractService implements RecipeCommentsSer
     }
 
     public function delete(
-        RecipeComment $recipeComment, int $userId
+        RecipeComment $recipeComment, string $userId
     ): RecipeComment {
         $recipeComment->updated_by = $userId;
         $recipeComment->trashed();
