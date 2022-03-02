@@ -10,6 +10,8 @@ class SettingsSeedData extends AbstractSeedData implements SeedDataInterface
 {
     const BASE_SETTING_ID = '255bffad-7689-4821-b53c-ace793319530';
 
+    const ALTERNATE_SETTING_ID = '67879738-b833-48d4-b22f-23d86936dd3d';
+
     public static function getData(): array
     {
         return

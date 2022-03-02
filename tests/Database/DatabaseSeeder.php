@@ -5,10 +5,12 @@ namespace tests\Database;
 use Gossamer\Core\MVC\AbstractModel;
 use Illuminate\Database\Eloquent\Model;
 use tests\Database\Seeds\Blogs\BlogCategoriesSeedData;
+use tests\Database\Seeds\Blogs\BlogCommentsSeedData;
 use tests\Database\Seeds\Blogs\BlogsSeedData;
 use tests\Database\Seeds\Dashboard\SettingGroupsSeedData;
 use tests\Database\Seeds\Dashboard\SettingsSeedData;
 use tests\Database\Seeds\Recipes\RecipeCategoriesSeedData;
+use tests\Database\Seeds\Recipes\RecipeRatingsSeedData;
 use tests\Database\Seeds\Recipes\RecipesRecipeCategoriesSeedData;
 use tests\Database\Seeds\Recipes\RecipesSeedData;
 use tests\Database\Seeds\Users\UsersSeedData;
@@ -23,14 +25,16 @@ class DatabaseSeeder
     {
         $seeds
             = [
-                new SettingGroupsSeedData(),
+            new SettingGroupsSeedData(),
             new SettingsSeedData(),
             new BlogCategoriesSeedData(),
             new BlogsSeedData(),
+            new BlogCommentsSeedData(),
             new UsersSeedData(),
             new RecipesSeedData(),
             new RecipeCategoriesSeedData(),
-            new RecipesRecipeCategoriesSeedData()
+            new RecipesRecipeCategoriesSeedData(),
+            new RecipeRatingsSeedData()
         ];
         //disable foreign key check for this connection before running seeders
 
@@ -43,6 +47,5 @@ class DatabaseSeeder
 
         //re-enable foreign key checks now that we're completed with all seeding
         AbstractModel::query('SET FOREIGN_KEY_CHECKS=1;');
-
     }
 }

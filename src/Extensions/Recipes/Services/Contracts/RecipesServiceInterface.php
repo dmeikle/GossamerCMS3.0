@@ -17,4 +17,5 @@ interface RecipesServiceInterface
     public function getBySlug(string $slug) : Recipe;
 
     public function listByCategory(string $categorySlug) : ListResult;
+
 }

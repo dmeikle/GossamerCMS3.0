@@ -5,6 +5,7 @@ namespace tests\Extensions\Recipes\Services;
 use Components\Blogs\DTOs\BlogDTO;
 use Extensions\Recipes\DTOs\RecipeDTO;
 use tests\Database\Seeds\Blogs\BlogCategoriesSeedData;
+use tests\Database\Seeds\Blogs\BlogsSeedData;
 use tests\Database\Seeds\Recipes\RecipesSeedData;
 use tests\Database\Seeds\Users\UsersSeedData;
 use tests\helpers\TestCase;
@@ -56,16 +57,14 @@ class RecipesServiceTest extends TestCase
 
         $recipe = $service->save(
             new RecipeDTO(
-                null,
-                new BlogDTO(
-                    null,
+                RecipesSeedData::ALTERNATE_RECIPE_ID,
+                    BlogsSeedData::BLOG_ALTERNATE_RECIPE_ID,
                     'title for recipe',
                     'description for recipe',
                     'contents for recipe',
                     'recipe slug',
                     'recipe keywords',
-                    BlogCategoriesSeedData::BLOG_CATEGORIES_BASE_ID
-                ),
+                    BlogCategoriesSeedData::BLOG_CATEGORIES_BASE_ID,
                 '10 min',
                 '12 min',
                 array()

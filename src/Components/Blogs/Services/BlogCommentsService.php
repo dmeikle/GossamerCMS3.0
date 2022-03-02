@@ -1,28 +1,47 @@
 <?php
 
-namespace Extensions\Recipes\Services;
+namespace Components\Blogs\Services;
 
-use Extensions\Recipes\DTOs\SaveRecipeCommentDTO;
-use Extensions\Recipes\Models\RecipeComment;
-use Extensions\Recipes\Services\Contracts\RecipeCommentsServiceInterface;
+use Components\Blogs\DTOs\SaveBlogCommentDTO;
+use Components\Blogs\Exceptions\CommentsDisallowedException;
+use Components\Blogs\Models\Blog;
+use Components\Blogs\Models\BlogComment;
+use Components\Blogs\Services\Contracts\BlogCommentsServiceInterface;
 use Gossamer\Core\MVC\AbstractService;
 use Gossamer\Pesedget\Database\Utils\ListResult;
 
-class RecipeCommentsService extends AbstractService implements RecipeCommentsServiceInterface
+class BlogCommentsService extends AbstractService implements BlogCommentsServiceInterface
 {
 
+    /**
+     * @param  SaveBlogCommentDTO  $blogCommentDTO
+     * @param  Blog                $blog
+     * @param  string              $userId
+     *
+     * @return BlogComment
+     * @throws CommentsDisallowedException
+     */
     public function save(
-        SaveRecipeCommentDTO $recipeCommentDTO,
+        SaveBlogCommentDTO $blogCommentDTO,
+        Blog $blog,
         string $userId
-    ): RecipeComment {
-        $recipeComment = RecipeComment::create(
+    ): BlogComment {
+
+        if(!$blog->allow_comments) {
+            throw new CommentsDisallowedException();
+        }
+
+        $id = $this->getKey($blogCommentDTO);
+
+        return BlogComment::create(
             [
-                'recipe_id' => $recipeCommentDTO->getRecipesId(),
-                'comment' => $recipeCommentDTO->getComment()
+                'id' => $id,
+                'blogs_id' => $blogCommentDTO->getBlogsId(),
+                'comment' => $blogCommentDTO->getComment(),
+                'created_by' => $userId,
+                'updated_by' => $userId
             ]
         );
-
-        return $recipeComment;
     }
 
     public function list(
@@ -30,18 +49,27 @@ class RecipeCommentsService extends AbstractService implements RecipeCommentsSer
         int $limit,
         array $searchParams
     ): ListResult {
-        $query = RecipeComment::query();
-        RecipeComment::getSearchParams($query, $searchParams['search']);
+        $query = BlogComment::query();
+        BlogComment::getSearchParams($query, $searchParams['search']);
 
         return $this->getBasicList($offset, $limit, $searchParams, $query);
     }
 
     public function delete(
-        RecipeComment $recipeComment, string $userId
-    ): RecipeComment {
-        $recipeComment->updated_by = $userId;
-        $recipeComment->trashed();
+        BlogComment $blogComment, string $userId
+    ): BlogComment {
+        $blogComment->updated_by = $userId;
+        $blogComment->trashed();
 
-        return $recipeComment;
+        return $blogComment;
+    }
+
+    public function listByBlog(int $offset, int $limit, string $blogsId): ListResult
+    {
+        $searchParams = ['blogs_id' => $blogsId];
+        $query = BlogComment::query();
+        BlogComment::getFilterParams($query, $searchParams);
+
+        return $this->getBasicList($offset, $limit, $searchParams, $query);
     }
 }

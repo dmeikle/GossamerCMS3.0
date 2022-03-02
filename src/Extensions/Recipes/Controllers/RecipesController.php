@@ -2,11 +2,15 @@
 
 namespace Extensions\Recipes\Controllers;
 
+use Components\Blogs\DTOs\BlogCommentDTO;
+use Components\Blogs\DTOs\SaveBlogCommentDTO;
+use Components\Blogs\Models\Blog;
 use Extensions\Recipes\DTOs\RecipeDTO;
-use Extensions\Recipes\DTOs\SaveRecipeCommentDTO;
+use Extensions\Recipes\DTOs\RecipeRatingDTO;
 use Extensions\Recipes\Http\Requests\IndexRequest;
 use Extensions\Recipes\Http\Requests\SaveRecipeRequest;
 use Extensions\Recipes\Models\Recipe;
+use Extensions\Recipes\Services\RecipeRatingsService;
 use Extensions\Recipes\Services\RecipesService;
 use Gossamer\Core\Http\Responses\SuccessResponse;
 use Gossamer\Core\MVC\AbstractController;
@@ -17,6 +21,8 @@ class RecipesController extends AbstractController
 {
     private RecipesService $recipesService;
 
+    private RecipeRatingsService $recipeRatingsService;
+
     const URL_RECIPES_LIST_ALL = '/recipes/{offset}/{limit}';
     const URL_RECIPES_GET_BY_SLUG = '/recipes/{slug}';
     const URL_RECIPES_ADMIN_LIST_ALL = '/admin/recipes/{offset}/{limit}';
@@ -26,10 +32,12 @@ class RecipesController extends AbstractController
     public function __construct(
         EventDispatcher $eventDispatcher,
         LoggingInterface $logger,
-        RecipesService $recipesService
+        RecipesService $recipesService,
+        RecipeRatingsService $recipeRatingsService
     ) {
         parent::__construct($eventDispatcher, $logger);
         $this->recipesService = $recipesService;
+        $this->recipeRatingsService = $recipeRatingsService;
     }
 
     public function index(IndexRequest $request)
@@ -63,7 +71,8 @@ class RecipesController extends AbstractController
                     $recipe->prep_time,
                     $recipe->instructions,
                     $recipe->keywords,
-                    $recipe->slug
+                    $recipe->slug,
+                    $recipe->blogs_id
                 )
             ));
     }
@@ -89,15 +98,29 @@ class RecipesController extends AbstractController
             ));
     }
 
-    public function getBySlug(Recipe $recipe)
+    public function getBySlug(Blog $blog)
     {
         $comments = $this->httpRequest->getAttribute('comments');
+        $ratings = $this->httpRequest->getAttribute('ratings');
+        $recipe = $this->httpRequest->getAttribute('recipe');
 
         $commentDTOs = [];
         foreach($comments as $comment) {
-            $commentDTOs[] = new SaveRecipeCommentDTO(
-                $recipe->id,
+            $commentDTOs[] = new BlogCommentDTO(
+                $comment->firstname,
+                $comment->lastname,
+                $comment->created_at,
                 $comment->comment
+            );
+        }
+
+        $ratingsDTOs = [];
+        foreach($ratings as $rating) {
+            $ratingsDTOs[] = new RecipeRatingDTO(
+                $rating->firstname,
+                $rating->lastname,
+                $rating->rating,
+                $rating->created_at
             );
         }
 
@@ -107,14 +130,17 @@ class RecipesController extends AbstractController
             ->setBody(
                 new RecipeDTO(
                     $recipe->id,
-                    $recipe->title,
-                    $recipe->description,
+                    $blog->id,
+                    $blog->title,
+                    $blog->description,
+                    $blog->contents,
+                    $blog->slug,
+                    $blog->keywords,
+                    $blog->blog_categories_id,
                     $recipe->cook_time,
                     $recipe->prep_time,
-                    $recipe->instructions,
-                    $recipe->keywords,
-                    $recipe->slug,
-                    $commentDTOs
+                    $commentDTOs,
+                    $ratingsDTOs
                 )
             ));
     }

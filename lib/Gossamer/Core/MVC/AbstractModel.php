@@ -23,4 +23,10 @@ class AbstractModel extends Model implements ModelInterface
         }
     }
 
+    public static function getFilterParams(Builder $builder, array $params) {
+        foreach($params as $key => $value) {
+            $builder->where($key, '=', $value);
+        }
+    }
+
 }

@@ -2,7 +2,7 @@
 
 namespace Extensions\Recipes\Http\Requests;
 
-use Extensions\Recipes\DTOs\SaveRecipeCommentDTO;
+use Components\Blogs\DTOs\SaveBlogCommentDTO;
 use Gossamer\Core\DTOs\DTOInterface;
 use Gossamer\Core\Http\Requests\PostRequest;
 
@@ -12,7 +12,7 @@ class SaveRecipeCommentRequest extends PostRequest implements DTOInterface
     public function post(): DTOInterface
     {
 
-        return new SaveRecipeCommentDTO(
+        return new SaveBlogCommentDTO(
             $this->recipe_id,
             $this->comment
         );

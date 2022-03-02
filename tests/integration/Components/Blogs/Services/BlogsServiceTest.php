@@ -16,7 +16,7 @@ class BlogsServiceTest extends TestCase
         $service = $this->getService(self::SERVICE_NAME);
 
         $list = $service->list(0, 10, array('query' => 'qwe'));
-$this->generate($list->getList());
+
         $this->assertNotNull($list);
         $this->assertJsonEqualsIgnoreDates( $list->getList());
     }

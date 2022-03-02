@@ -2,74 +2,52 @@
 
 namespace Gossamer\Core\Util;
 
-use Gossamer\Core\DTOs\DTOInterface;
 
 class JsonMapper
 {
 
+    const PRIMARIES = ['string','int', 'bool','void','null', 'float'];
+
     public static function toJson($object)
     {
-        $retval = null;
 
-        if (is_array($object)) {
-            $retval = array();
-            foreach ($object as $item) {
-                $retval[] = self::iterate($item);
-            }
-        } else {
-            $retval = self::iterate($object);
-        }
+        $retval = self::iterate($object);
 
-        return json_encode($retval, JSON_PRETTY_PRINT);
+
+      return json_encode($retval, JSON_PRETTY_PRINT);
     }
+
 
     private static function iterate($object)
     {
 
-        if (is_null($object) || !is_object($object)) {
-            return $object;
-        }
         $reflection = new \ReflectionObject($object);
 
         $methods = $reflection->getMethods();
-        $retval = array();
 
-        foreach ($methods as $method) {
+        $retval = [];
 
-            if ($method->name == '__construct' || $method->name == 'toString') {
+        foreach($methods as $method) {
+            if ($method->getName() == '__construct' || $method->getName() == '__toString') {
                 continue;
             }
             $reflectionMethod = new \ReflectionMethod($object, $method->name);
 
             $key = lcfirst(substr($method->name, 3));
             $returnType = $reflectionMethod->getReturnType();
-
-//               if( $reflectionMethod->hasReturnType() &&  $returnType == 'array') {
-//                   //echo "$key to json\r\n";
-//                   $subObject = $reflectionMethod->invoke($object);
-//                   if(!is_null($object) && $subObject[0] instanceof DTOInterface) {
-//                       $retval[$key] = self::toJson($subObject);
-//                      // dd($subObject);
-//                   }
-//               }
-
-            if (!is_null($returnType) && is_object($reflectionMethod->getReturnType())) {
-                $retval[$key] = self::iterate($reflectionMethod->invoke($object));
-            } elseif ($returnType == 'array') {
-                echo "to json\r\n";
-                dd($object);
-
-            } else {
-
-
-                if($object instanceof DTOInterface) {
-                    //$retval[$key] = self::toJson($object);// self::iterate($reflectionMethod->invoke($object));
-                }else{
+            //deal with the basic return types
+            if($reflectionMethod->hasReturnType() && in_array($returnType->getName(), self::PRIMARIES) ) {
+                try{
                     $retval[$key] = $reflectionMethod->invoke($object);
+                }catch (\TypeError $e){}
+            } elseif($reflectionMethod->hasReturnType() && $returnType->getName() == 'array' ) {
+                $items = $reflectionMethod->invoke($object);
+                $subElements = [];
+                foreach ($items as $item) {
+                    $subElements[] = self::iterate($item);
                 }
-
+                $retval[$key] = $subElements;
             }
-
         }
 
         return $retval;

@@ -45,7 +45,7 @@ class SettingsServiceTest extends TestCase
 
         $item = $service->save(
             new SettingDTO(
-                null,
+                SettingsSeedData::ALTERNATE_SETTING_ID,
                 SettingGroupsSeedData::BASE_SETTING_GROUP_ID,
                 'phpunit test',
                 'php unit test description',

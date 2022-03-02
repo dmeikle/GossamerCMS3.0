@@ -93,18 +93,18 @@ recipes_save:
   methods: [POST]
 
 recipes_getbyslug:
-  pattern: /recipes/{recipe}
+  pattern: /recipes/{blog}
   defaults:
     component: Extensions\Recipes\RecipesComponent
     controller: Extensions\Recipes\Controllers\RecipesController
-    model: Extensions\Recipes\Models\Recipe
+    model: Components\BLogs\Models\Blog
     method: getBySlug
     view: Gossamer\Core\Views\JsonView
     viewKey: recipes_getbyslug
     datasource: datasource1
   methods: [GET]
   implicitKeys:
-    - { 'recipe': 'Extensions\Recipes\Models\Recipe', 'key': slug }
+    - { 'blog': 'Components\Blogs\Models\Blog', 'key': slug }
 #
 #recipes_get:
 #  pattern: /recipes/{recipe}

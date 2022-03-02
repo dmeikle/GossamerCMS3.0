@@ -20,7 +20,8 @@ class Blog extends AbstractModel
         'contents',
         'keywords',
         'slug',
-        'blog_categories_id'
+        'blog_categories_id',
+        'allow_comments'
     ];
 
     protected static array $searchable = [

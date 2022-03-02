@@ -28,6 +28,7 @@ class ImplicitLoader
 
         if(array_key_exists('implicitKeys', $params[$this->httpRequest->getYmlKey()])) {
             foreach ($params[$this->httpRequest->getYmlKey()]['implicitKeys'] as $implicitKey) {
+
                foreach($implicitKey as $key => $className) {
                    if($key == 'key') {
                        continue;

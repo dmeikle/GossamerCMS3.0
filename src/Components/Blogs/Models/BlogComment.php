@@ -1,10 +1,10 @@
 <?php
 
-namespace Extensions\Recipes\Models;
+namespace Components\Blogs\Models;
 
 use Gossamer\Core\MVC\AbstractModel;
 
-class RecipeComment extends AbstractModel
+class BlogComment extends AbstractModel
 {
 
     protected $fillable = [
@@ -15,8 +15,7 @@ class RecipeComment extends AbstractModel
         'created_by',
         'updated_by',
         'deleted_at',
-        'prep_time',
-        'cook_time'
+        'comment'
     ];
 
 }

@@ -25,7 +25,8 @@ class RecipesService extends AbstractService implements RecipesServiceInterface
         EntityManager $entityManager,
         HttpRequest $httpRequest,
         HttpResponse $httpResponse,
-        LoggingInterface $logger, BlogsService $blogsService
+        LoggingInterface $logger,
+        BlogsService $blogsService
     ) {
         parent::__construct($container, $entityManager, $httpRequest,
             $httpResponse, $logger);
@@ -38,10 +39,9 @@ class RecipesService extends AbstractService implements RecipesServiceInterface
         int $limit,
         array $searchParams
     ): ListResult {
-
         $query = Recipe::query();
 
-        if(array_key_exists('search', $searchParams)){
+        if (array_key_exists('search', $searchParams)) {
             Recipe::getSearchParams($query, $searchParams['search']);
         }
         $query->join('blogs', 'recipes.blogs_id', 'blogs.id');
@@ -52,10 +52,15 @@ class RecipesService extends AbstractService implements RecipesServiceInterface
     public function save(RecipeDTO $recipeDTO, string $userId): Recipe
     {
         $blog = $this->blogsService->save(
-            $recipeDTO->getBlogDTO(),
+            new BlogDTO(
+                $recipeDTO->getBlogsId(), $recipeDTO->getTitle(),
+                $recipeDTO->getDescription(), $recipeDTO->getContents(),
+                $recipeDTO->getSlug(), $recipeDTO->getKeywords(),
+                $recipeDTO->getBlogCategoriesId()
+            ),
             $userId
         );
-        if(is_null($blog)) {
+        if (is_null($blog)) {
             throw new \Exception();
         }
 
@@ -92,8 +97,10 @@ class RecipesService extends AbstractService implements RecipesServiceInterface
         $max = (new Recipe())->categories()->count();
         $builder = Recipe::query();
         $list = $builder->selectRaw('recipes.*')
-            ->join('recipes_recipe_categories', 'recipes.id', '=', 'recipes_recipe_categories.recipes_id')
-            ->join('recipe_categories', 'recipe_categories.id', '=', 'recipes_recipe_categories.recipe_categories_id')
+            ->join('recipes_recipe_categories', 'recipes.id', '=',
+                'recipes_recipe_categories.recipes_id')
+            ->join('recipe_categories', 'recipe_categories.id', '=',
+                'recipes_recipe_categories.recipe_categories_id')
             ->where('recipe_categories.slug', '=', $categorySlug)
             ->get();
         return new ListResult($max, $list);

@@ -25,6 +25,24 @@ CREATE TABLE `blog_categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
+/*Table structure for table `blog_comments` */
+
+DROP TABLE IF EXISTS `blog_comments`;
+
+CREATE TABLE `blog_comments` (
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `blogs_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_blgcmts_blgs` (`blogs_id`),
+  CONSTRAINT `fk_blgcmnts_blgs` FOREIGN KEY (`blogs_id`) REFERENCES `blogs` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 /*Table structure for table `blogs` */
 
 DROP TABLE IF EXISTS `blogs`;
@@ -37,11 +55,12 @@ CREATE TABLE `blogs` (
   `updated_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `title` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `contents` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `slug` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `keywords` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `blog_categories_id` int NOT NULL,
+  `allow_comments` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_blogs_blogs_categories_idx` (`blog_categories_id`),
   KEY `fk_blogs_users_created_idx` (`created_by`),
@@ -54,68 +73,67 @@ CREATE TABLE `blogs` (
 DROP TABLE IF EXISTS `recipe_categories`;
 
 CREATE TABLE `recipe_categories` (
-  `id` varchar(36) NOT NULL,
-  `category` varchar(45) NOT NULL,
-  `description` varchar(250) NOT NULL,
-  `keywords` varchar(250) NOT NULL,
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `category` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `description` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `keywords` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `priority` int NOT NULL,
-  `slug` varchar(45) NOT NULL,
+  `slug` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `created_by` varchar(36) DEFAULT NULL,
+  `created_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `image` varchar(150) DEFAULT NULL,
+  `image` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
-/*Table structure for table `recipe_comments` */
+/*Table structure for table `recipe_ratings` */
 
-DROP TABLE IF EXISTS `recipe_comments`;
+DROP TABLE IF EXISTS `recipe_ratings`;
 
-CREATE TABLE `recipe_comments` (
-  `id` varchar(36) NOT NULL,
-  `recipes_id` varchar(36) NOT NULL,
+CREATE TABLE `recipe_ratings` (
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `recipes_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `rating` int NOT NULL,
   `created_at` datetime NOT NULL,
-  `created_by` varchar(36) NOT NULL,
-  `deleted_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` varchar(36) NOT NULL,
-  `comment` varchar(500) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `created_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_rcprtngs_rcps` (`recipes_id`),
+  CONSTRAINT `fk_rcprtngs_rcps` FOREIGN KEY (`recipes_id`) REFERENCES `recipes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `recipes` */
 
 DROP TABLE IF EXISTS `recipes`;
 
 CREATE TABLE `recipes` (
-  `id` varchar(36) NOT NULL,
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `blogs_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `prep_time` varchar(100) NOT NULL,
-  `cook_time` varchar(100) NOT NULL,
+  `prep_time` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `cook_time` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `created_at` datetime NOT NULL,
-  `created_by` varchar(36) NOT NULL,
+  `created_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `updated_at` datetime NOT NULL,
-  `updated_by` varchar(36) NOT NULL,
+  `updated_by` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
 /*Table structure for table `recipes_recipe_categories` */
 
 DROP TABLE IF EXISTS `recipes_recipe_categories`;
 
 CREATE TABLE `recipes_recipe_categories` (
-  `id` varchar(36) NOT NULL,
-  `recipes_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `recipe_categories_id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `recipes_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `recipe_categories_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `fk_recipes_recipe_categories_3_idx` (`recipes_id`,`recipe_categories_id`),
   KEY `fk_recipes_recipe_categories_1_idx` (`recipes_id`),
   KEY `fk_recipes_recipe_categories_2_idx` (`recipe_categories_id`),
   CONSTRAINT `fk_recipes_recipe_categories_1` FOREIGN KEY (`recipes_id`) REFERENCES `recipes` (`id`),
   CONSTRAINT `fk_recipes_recipe_categories_2` FOREIGN KEY (`recipe_categories_id`) REFERENCES `recipe_categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
 /*Table structure for table `setting_groups` */
 
@@ -123,30 +141,30 @@ DROP TABLE IF EXISTS `setting_groups`;
 
 CREATE TABLE `setting_groups` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(100) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `priority` int NOT NULL DEFAULT '0',
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
 /*Table structure for table `settings` */
 
 DROP TABLE IF EXISTS `settings`;
 
 CREATE TABLE `settings` (
-  `id` varchar(36) NOT NULL,
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `setting_groups_id` int NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  `priority` int default 0 NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `priority` int NOT NULL DEFAULT '0',
   `is_active` tinyint(1) NOT NULL,
-  `value` varchar(50) NOT NULL,
-  `key` varchar(50) not null,
+  `value` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `key` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
 /*Table structure for table `users` */
 

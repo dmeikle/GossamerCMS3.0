@@ -10,6 +10,8 @@ class UsersSeedData extends AbstractSeedData implements SeedDataInterface
 {
     const BASE_USER_ID = '0C30457D-50F0-DE6F-C734-5E36231F022C';
 
+    const ALTERNATE_USER_ID = "A8AAE570-4B9A-C70E-1668-0667F79F6C5E";
+
     public static function getUsers()
     {
         return
@@ -22,23 +24,23 @@ class UsersSeedData extends AbstractSeedData implements SeedDataInterface
                     "created_at" => self::getDatetime()
                 ],
                 [
-                    "id" => "A8AAE570-4B9A-C70E-1668-0667F79F6C5E",
+                    "id" => self::ALTERNATE_USER_ID,
                     "firstname" => "david2",
-                    "lastname" => null,
+                    "lastname" => "Smith",
                     "updated_at" => self::getDatetime(),
                     "created_at" => self::getDatetime()
                 ],
                 [
                     "id" => "D884CFEF-E1BF-8A3A-4C33-9F35F22DE52B",
                     "firstname" => "david2",
-                    "lastname" => null,
+                    "lastname" => "Jones",
                     "updated_at" => self::getDatetime(),
                     "created_at" => self::getDatetime()
                 ],
                 [
                     "id" => "ECE6718A-5077-EE2A-9809-DCDFF1E5035D",
                     "firstname" => "david2",
-                    "lastname" => null,
+                    "lastname" => "Doe",
                     "updated_at" => self::getDatetime(),
                     "created_at" => self::getDatetime()
                 ]

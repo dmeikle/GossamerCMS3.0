@@ -2,32 +2,30 @@
 
 namespace Extensions\Recipes\Controllers;
 
+use Components\Blogs\DTOs\SaveBlogCommentDTO;
+use Components\Blogs\Models\BlogComment;
+use Components\Blogs\Services\BlogCommentsService;
 use Components\Users\Exceptions\UserNotFoundException;
 use Components\Users\Services\UsersService;
 use Extensions\Recipes\DTOs\DeleteRecipeCommentDTO;
 use Extensions\Recipes\DTOs\GetRecipeCommentDTO;
-use Extensions\Recipes\DTOs\SaveRecipeCommentDTO;
 use Extensions\Recipes\Http\Requests\IndexRequest;
 use Extensions\Recipes\Http\Requests\SaveRecipeCommentRequest;
-use Extensions\Recipes\Models\RecipeComment;
-use Extensions\Recipes\Services\RecipeCommentsService;
 use Gossamer\Core\Http\Responses\SuccessResponse;
 use Gossamer\Core\MVC\AbstractController;
 use Gossamer\Horus\EventListeners\EventDispatcher;
 use Gossamer\Neith\Logging\LoggingInterface;
 
-use function dd;
-
 class RecipeCommentsController extends AbstractController
 {
-    private RecipeCommentsService $recipeCommentsService;
+    private BlogCommentsService $recipeCommentsService;
 
     private UsersService $usersService;
 
     public function __construct(
         EventDispatcher $eventDispatcher,
         LoggingInterface $logger,
-        RecipeCommentsService $recipeCommentsService,
+        BlogCommentsService $recipeCommentsService,
         UsersService $usersService
     ) {
         parent::__construct($eventDispatcher, $logger);
@@ -58,7 +56,7 @@ class RecipeCommentsController extends AbstractController
             ->setStatus('success')
             ->setCode(200)
             ->setBody(
-                new SaveRecipeCommentDTO(
+                new SaveBlogCommentDTO(
                     $recipe->id,
                     $recipe->title,
                     $userId
@@ -66,7 +64,7 @@ class RecipeCommentsController extends AbstractController
             ));
     }
 
-    public function get(RecipeComment $recipeComment)
+    public function get(BlogComment $recipeComment)
     {
         $user = $this->usersService->get($recipeComment->created_by);
         if(is_null($user)) {
@@ -85,8 +83,8 @@ class RecipeCommentsController extends AbstractController
             ));
     }
 
-    public function delete(RecipeComment $recipeComment)
-    {dd()
+    public function delete(BlogComment $recipeComment)
+    {
         $userId = '0C30457D-50F0-DE6F-C734-5E36231F022C';
         $deletedRecipeComment = $this->recipeCommentsService->delete(
             $recipeComment,

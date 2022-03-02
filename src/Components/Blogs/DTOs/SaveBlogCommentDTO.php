@@ -1,16 +1,16 @@
 <?php
 
-namespace Extensions\Recipes\DTOs;
+namespace Components\Blogs\DTOs;
 
 use Gossamer\Core\DTOs\DTOInterface;
 
-class SaveRecipeCommentDTO implements DTOInterface
+class SaveBlogCommentDTO implements DTOInterface
 {
 
     /**
      * @var string
      */
-    private $recipes_id;
+    private $blogs_id;
 
     /**
      * @var string
@@ -26,12 +26,12 @@ class SaveRecipeCommentDTO implements DTOInterface
 
     /**
      * @param  string  $id
-     * @param  string  $recipes_id
+     * @param  string  $blogs_id
      * @param  string  $comment
      */
-    public function __construct(string $recipes_id, string $comment, string $userId)
+    public function __construct(string $blogs_id, string $comment, string $userId)
     {
-        $this->recipes_id = $recipes_id;
+        $this->blogs_id = $blogs_id;
         $this->comment = $comment;
         $this->userId = $userId;
     }
@@ -39,10 +39,12 @@ class SaveRecipeCommentDTO implements DTOInterface
     /**
      * @return string
      */
-    public function getRecipesId(): string
+    public function getBlogsId(): string
     {
-        return $this->recipes_id;
+        return $this->blogs_id;
     }
+
+
 
     /**
      * @return string
@@ -61,8 +63,8 @@ class SaveRecipeCommentDTO implements DTOInterface
     }
 
 
-    public function getId(): string
+    public function getId(): ?string
     {
-        return '';
+        return null;
     }
 }

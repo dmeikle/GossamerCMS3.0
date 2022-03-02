@@ -21,6 +21,7 @@ trait JsonResponseHelper
         $expected = $this->stripDates($expected);
 
         $json = $this->stripDates($json);
+
       // return array_diff(json_decode($expected,true), json_decode( $expected, true));
         $this->assertJsonStringEqualsJsonString($expected,  $json, 'json does not match');
     }
@@ -42,6 +43,7 @@ trait JsonResponseHelper
 
     private function stripDates(string $json) {
         $expectedObj = json_decode($json);
+        unset($expectedObj->created_at, $expectedObj->updated_at, $expectedObj->deleted_at);
 
         foreach($expectedObj as $object) {
             unset($object->created_at, $object->updated_at, $object->deleted_at);

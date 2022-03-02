@@ -3,6 +3,7 @@
 namespace tests\helpers;
 
 
+use Gossamer\Caching\CacheManager;
 use Gossamer\Core\Http\Requests\HttpRequest;
 use Gossamer\Core\MVC\AbstractService;
 use Gossamer\Core\MVC\Factories\SpawnFactory;
@@ -24,24 +25,8 @@ class TestCase extends \PHPUnit\Framework\TestCase
             $this->getContainer($httpRequest),
             $httpRequest
         );
+
         return $spawnFactory->spawn($classPath);
-//        return new $classPath(
-//            new Container(),
-//            new EntityManager(
-//                [
-//                    'default' => [
-//                        'host' => 'localhost',
-//                        'username' => 'goss3_user',
-//                        'password' => 'dh7djsdk4',
-//                        'dbName' => 'gossamer3'
-//                    ]
-//                ]
-//            ),
-//            new HttpRequest(new RequestParams(), new SiteParams()
-//            ),
-//            new HttpResponse(),
-//            buildLogger()
-//        );
     }
 
     protected function getContainer(HttpRequest $httpRequest) : Container {
@@ -50,11 +35,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $entityManager = $bootstrapLoader->getEntityManager(__CONFIG_PATH);
         $logger = buildLogger();
 
-        $httpResponse = new \Gossamer\Horus\Http\HttpResponse();
-        $container = new \Gossamer\Set\Utils\Container();
+        $httpResponse = new HttpResponse();
+        $container = new Container();
         $container->set('Logger', $logger, 'Gossamer\Neith\Logging\LoggingInterface');
         $container->set('EntityManager', $entityManager, 'Gossamer\Core\System\EntityManager');
-        $cacheManager = new \Gossamer\Caching\CacheManager($logger);
+        $cacheManager = new CacheManager($logger);
         $cacheManager->setHttpRequest($httpRequest);
         $container->set('CacheManager', $cacheManager, 'Gossamer\Caching\CacheManager');
         $container->set('HttpRequest', $httpRequest, 'Gossamer\Horus\Http\HttpRequest');

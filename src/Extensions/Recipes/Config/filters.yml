@@ -3,10 +3,16 @@ recipes_getbyslug:
     filters:
         - {
           event: implicit_load_complete,
-          filter: 'Components\Recipes\Filters\ListAllRecipeCommentsByRecipeFilter',
-          model: 'Components\Recipes\Models\RecipeComment',
-
+          filter: 'Extensions\Recipes\Filters\ListAllRecipeCommentsByRecipeFilter',
+          model: 'Extensions\Recipes\Models\RecipeComment',
           datasource: datasource1,
           entity: RecipeComment,
           cacheKey: OrderedCategories
+        }
+        - {
+          event: implicit_load_complete,
+          filter: 'Extensions\Recipes\Filters\ListRecipeRatingsByRecipeFilter',
+          model: 'Extensions\Recipes\Models\RecipeRating',
+          datasource: datasource1,
+          entity: RecipeRatings,
         }
